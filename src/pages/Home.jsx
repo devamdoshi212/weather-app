@@ -19,6 +19,7 @@ import WeatherView from "../components/WeatherView";
 import { useSelector } from "react-redux";
 import { Loading } from "./Loading";
 import WeatherForecast from "../components/WeatherForecast";
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 export default function Home() {
@@ -26,11 +27,13 @@ export default function Home() {
   const { weatherDetails, loading, error } = useSelector(
     (state) => state.weather
   );
-  const { ip } = useSelector((state) => state.user);
   const { weatherForecastDetails, loading1, error1 } = useSelector(
     (state) => state.weather
   );
-  const drawer = [{ name: "Dashboard", icon: <homeIcon />, link: "/" }];
+  const drawer = [
+    { name: "Dashboard", icon: "", link: "/" },
+    { name: "History", icon: "", link: "/history" },
+  ];
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const handleDrawerOption = () => {
     setOpen(!open);
@@ -74,7 +77,7 @@ export default function Home() {
         <List>
           {drawer.map((text, index) => (
             <ListItem key={index} disablePadding>
-              <ListItemButton>
+              <ListItemButton component={Link} to={text.link}>
                 <ListItemIcon>{text.icon}</ListItemIcon>
                 <ListItemText primary={text.name} />
               </ListItemButton>

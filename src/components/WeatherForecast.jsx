@@ -66,11 +66,19 @@ const WeatherForecast = ({ forecast }) => {
 
   return (
     <Box sx={{ padding: 2 }}>
+      <Typography variant="h4" gutterBottom>
+        7-Day Weather Forecast
+      </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
-          <Grid container direction="column" spacing={2}>
+        <Grid item xs={12} md={5}>
+          <Grid
+            container
+            direction="row"
+            spacing={2}
+            sx={{ maxHeight: "calc(100vh - 64px)" }}
+          >
             {realData.map((day, index) => (
-              <Grid item key={index}>
+              <Grid item key={index} xs={6}>
                 <Card
                   sx={{ display: "flex", alignItems: "center", padding: 1 }}
                 >
@@ -92,7 +100,7 @@ const WeatherForecast = ({ forecast }) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={7}>
           <Box sx={{ marginTop: 2 }}>
             <Line data={data} options={options} />
           </Box>

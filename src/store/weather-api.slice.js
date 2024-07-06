@@ -8,6 +8,7 @@ const initialState = {
   loading1: false,
   weatherDetails: null,
   weatherForecastDetails: null,
+  favourite: [],
 };
 
 export const weatherApi = createAsyncThunk("weatherApi", async (q) => {
@@ -36,7 +37,24 @@ export const weatherForecastApi = createAsyncThunk(
 const slice = createSlice({
   name: "weather",
   initialState,
-  reducers: {},
+  reducers: {
+    getFavorite: (state) => {
+      state.favourite = JSON.parse(localStorage.getItem("favourite"));
+    },
+    setFavorite: (state, action) => {
+      if (localStorage.getItem("favourite")) {
+        const fav = JSON.parse(localStorage.getItem("favourite"));
+        if (!fav.includes(action.payload)) {
+          fav.push(action.payload);
+          state.favourite.push();
+        }
+        localStorage.setItem("favourite", JSON.stringify(fav));
+      } else {
+        localStorage.setItem("favourite", JSON.stringify([action.payload]));
+        state.favourite = [action.payload];
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(weatherApi.rejected, (state, action) => {
       state.error = action.payload;
