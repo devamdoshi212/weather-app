@@ -39,14 +39,15 @@ const slice = createSlice({
   initialState,
   reducers: {
     getFavorite: (state) => {
-      state.favourite = JSON.parse(localStorage.getItem("favourite"));
+      if (localStorage.getItem("favourite"))
+        state.favourite = JSON.parse(localStorage.getItem("favourite"));
     },
     setFavorite: (state, action) => {
       if (localStorage.getItem("favourite")) {
         const fav = JSON.parse(localStorage.getItem("favourite"));
         if (!fav.includes(action.payload)) {
           fav.push(action.payload);
-          state.favourite.push();
+          state.favourite = [...state.favourite, action.payload];
         }
         localStorage.setItem("favourite", JSON.stringify(fav));
       } else {

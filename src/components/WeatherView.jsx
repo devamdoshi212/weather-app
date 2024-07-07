@@ -3,7 +3,7 @@ import { Grid, Typography, Card, CardContent, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { weatherActions } from "../store/weather-api.slice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const WeatherCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -17,21 +17,24 @@ const WeatherCard = styled(Card)(({ theme }) => ({
 }));
 
 const WeatherView = ({ data }) => {
+  const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
   const { favourite } = useSelector((state) => state.weather);
   const addToFavourite = () => {
     dispatch(weatherActions.setFavorite(data.location.name));
+    setDisabled(true);
   };
   const disableFavourite = () => {
-    if (favourite.includes(data.location.name)) return false;
-    return true;
+    if (favourite.includes(data.location.name)) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
   };
   useEffect(() => {
     disableFavourite();
   }, [favourite]);
-  useEffect(() => {
-    console.log(favourite);
-  }, [favourite]);
+
   return (
     <Grid container spacing={2} sx={{ paddingInline: 2 }}>
       <Grid item xs={9}>
@@ -57,6 +60,7 @@ const WeatherView = ({ data }) => {
           <Button
             variant="outlined"
             onClick={addToFavourite}
+            disabled={disabled}
             startIcon={<Star />}
           >
             Add to Favourite

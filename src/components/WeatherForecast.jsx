@@ -83,6 +83,7 @@ const WeatherForecast = ({ forecast }) => {
                   sx={{ display: "flex", alignItems: "center", padding: 1 }}
                 >
                   <Box sx={{ flexGrow: 1 }}>
+                    {getIcon(day.day.condition)}
                     <Typography variant="h6">{day.date}</Typography>
                     <Typography variant="body1">
                       {day.day.avgtemp_c}°C
@@ -94,7 +95,6 @@ const WeatherForecast = ({ forecast }) => {
                       Precipitation: {day.day.totalprecip_mm} mm
                     </Typography>
                   </Box>
-                  {getIcon(day.day.condition)}
                 </Card>
               </Grid>
             ))}
@@ -102,7 +102,7 @@ const WeatherForecast = ({ forecast }) => {
         </Grid>
         <Grid item xs={12} md={7}>
           <Box sx={{ marginTop: 2 }}>
-            <Line data={data} options={options} />
+            {realData && <Line data={data} options={options} />}
           </Box>
         </Grid>
       </Grid>

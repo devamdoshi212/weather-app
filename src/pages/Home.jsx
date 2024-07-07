@@ -12,29 +12,22 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AppBar from "@mui/material/AppBar";
-import { Grid, useMediaQuery } from "@mui/material";
-import Time from "../components/Time";
-import Search from "../components/Search";
-import WeatherView from "../components/WeatherView";
-import { useSelector } from "react-redux";
-import { Loading } from "./Loading";
-import WeatherForecast from "../components/WeatherForecast";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
+import { weatherActions } from "../store/weather-api.slice";
 const drawerWidth = 240;
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const { weatherDetails, loading, error } = useSelector(
-    (state) => state.weather
-  );
-  const { weatherForecastDetails, loading1, error1 } = useSelector(
-    (state) => state.weather
-  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(weatherActions.getFavorite());
+  }, [dispatch]);
+
   const drawer = [
     { name: "Dashboard", icon: "", link: "/" },
-    { name: "History", icon: "", link: "/history" },
+    { name: "Favourite", icon: "", link: "/favourite" },
   ];
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const handleDrawerOption = () => {
     setOpen(!open);
   };
@@ -97,27 +90,7 @@ export default function Home() {
         }}
       >
         <Toolbar />
-        <Grid
-          container
-          spacing={3}
-          wrap="wrap"
-          direction={isSmallScreen ? "column" : "row"}
-          paddingBottom={5}
-          justifyContent={"flex-start"}
-        >
-          <Grid item xs="4">
-            {!loading && weatherDetails && <Time data={weatherDetails} />}
-          </Grid>
-          <Grid item xs="8" alignContent={"center"} textAlign={"center"}>
-            <Search />
-          </Grid>
-        </Grid>
-        {!loading && weatherDetails && <WeatherView data={weatherDetails} />}
-        {loading && <Loading />}
-        {!loading1 && weatherForecastDetails && (
-          <WeatherForecast forecast={weatherForecastDetails} />
-        )}
-        {loading1 && <Loading />}
+        <Outlet />
       </Box>
     </Box>
   );
