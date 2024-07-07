@@ -7,6 +7,7 @@ This project is a weather dashboard application built using React and Material-U
 - Fetch and display real-time weather data for cities.
 - Implement data visualization for temperature trends using charts.
 - Ensure responsiveness and mobile-friendliness.
+- Implement a feature to add favorite cities for quick access.
 
 ## Requirements
 
@@ -14,28 +15,33 @@ This project is a weather dashboard application built using React and Material-U
    - Initialize a new React project using Create React App.
    - Integrate Material-UI for styling and UI components.
 
-3. **Search Functionality**
+2. **Search Functionality**
    - Implement a search bar for city searches.
    - Use WeatherAPI to fetch weather data for the searched city.
    - Display search suggestions as users type.
 
-4. **Display Current Weather**
+3. **Display Current Weather**
    - Show current weather information (temperature, humidity, wind speed, conditions) for the selected city.
    - Use Material-UI components like Card and Typography for styling.
 
-5. **7-Day Forecast**
+4. **7-Day Forecast**
    - Display a forecast for the next 7 days including daily temperatures, weather conditions, and precipitation.
    - Enhance visualization using Material-UI components and icons.
 
-6. **Data Visualization**
+5. **Data Visualization**
    - Implement charts (line or bar charts) using a library like Chart.js or Recharts to visualize temperature trends over 7 days.
 
-7. **Responsive Design**
+6. **Responsive Design**
    - Ensure the application layout is responsive and works well on various devices using Material-UI’s grid system and responsive utilities.
 
-8. **Error Handling**
+7. **Error Handling**
    - Gracefully handle errors such as failed API requests or invalid city names.
    - Display appropriate error messages to users.
+
+8. **Add to Favorites Feature**
+   - Allow users to add cities to a list of favorites.
+   - Provide quick access to weather data for favorite cities.
+   - Store favorite cities in local storage to persist data between sessions.
 
 ## Technologies Used
 - React
@@ -54,4 +60,4 @@ This project is a weather dashboard application built using React and Material-U
 - Search for a city using the search bar.
 - View current weather and 7-day forecast.
 - Explore temperature trends with visual charts.
-
+- Add cities to your favorites for quick access to their weather data.
