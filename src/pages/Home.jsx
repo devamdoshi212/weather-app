@@ -12,13 +12,15 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AppBar from "@mui/material/AppBar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 import { weatherActions } from "../store/weather-api.slice";
+import { Alert, Button, Snackbar } from "@mui/material";
 const drawerWidth = 240;
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const { error, error1 } = useSelector((state) => state.weather);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(weatherActions.getFavorite());
@@ -31,6 +33,7 @@ export default function Home() {
   const handleDrawerOption = () => {
     setOpen(!open);
   };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -90,6 +93,17 @@ export default function Home() {
         }}
       >
         <Toolbar />
+        {(error || error1) && (
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={true}
+            autoHideDuration={1000}
+          >
+            <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
+              {error || error1}
+            </Alert>
+          </Snackbar>
+        )}
         <Outlet />
       </Box>
     </Box>

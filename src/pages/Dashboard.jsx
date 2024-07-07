@@ -26,15 +26,19 @@ const Dashboard = () => {
         justifyContent={"flex-start"}
       >
         <Grid item xs="4">
-          {!loading && weatherDetails && <Time data={weatherDetails} />}
+          {!error && !loading && weatherDetails && (
+            <Time data={weatherDetails} />
+          )}
         </Grid>
         <Grid item xs="8" alignContent={"center"} textAlign={"center"}>
           <Search />
         </Grid>
       </Grid>
-      {!loading && weatherDetails && <WeatherView data={weatherDetails} />}
+      {!error && !loading && weatherDetails && (
+        <WeatherView data={weatherDetails} />
+      )}
       {loading && <Loading />}
-      {!loading1 && weatherForecastDetails && (
+      {!error1 && !error && !loading1 && weatherForecastDetails && (
         <WeatherForecast forecast={weatherForecastDetails} />
       )}
       {loading1 && <Loading />}

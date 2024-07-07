@@ -63,8 +63,15 @@ const slice = createSlice({
     });
     builder.addCase(weatherApi.pending, (state) => {
       state.loading = true;
+      state.error = null;
     });
     builder.addCase(weatherApi.fulfilled, (state, action) => {
+      if (action.payload?.error) {
+        state.error = action.payload?.error?.message;
+        state.weatherDetails = null;
+        state.loading = false;
+        return;
+      }
       state.weatherDetails = action.payload;
       state.loading = false;
     });
@@ -74,8 +81,15 @@ const slice = createSlice({
     });
     builder.addCase(weatherForecastApi.pending, (state) => {
       state.loading1 = true;
+      state.error = null;
     });
     builder.addCase(weatherForecastApi.fulfilled, (state, action) => {
+      if (action.payload?.error) {
+        state.error = action.payload?.error?.message;
+        state.weatherDetails = null;
+        state.loading1 = false;
+        return;
+      }
       state.weatherForecastDetails = action.payload;
       state.loading1 = false;
     });
